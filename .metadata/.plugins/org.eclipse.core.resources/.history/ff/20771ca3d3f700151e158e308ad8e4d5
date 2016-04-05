@@ -1,0 +1,11 @@
+
+<html>
+
+
+<body bgcolor="blue" text="white">
+<form action="manasa" method="post">
+USER NAME<input type="text" name="USERNAME"><br>
+PASSWORD<input type="password" name="PASSWORD"><br>
+<input type="submit" value="submit">
+</form>
+</body>

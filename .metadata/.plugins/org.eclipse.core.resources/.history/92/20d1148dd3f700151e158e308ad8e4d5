@@ -1,0 +1,16 @@
+
+<html>
+
+
+<body bgcolor="blue" text="white">
+<form action="manasa" method="post">
+USER NAME<input type="text" name="USERNAME"></td>
+PASSWORD<input type="password" name="PASSWORD"></td>
+</tr>
+<tr>
+<td align="right"><input type="submit" value="send">
+</td>
+<td><input type="reset" value="clear"></td></tr>
+</table>
+</form>
+</body>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/aopalliance-.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/hibernate-validator.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/hibernate-validator-4.2.0.Final.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/javax.validation-1.0.0.GA.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/jstl.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/org-apache-commons-logging.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/spring-security-config-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/spring-security-core-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/spring-security-core-3.1.0.release-sources.jar"/>
+	<classpathentry kind="lib" path="D:/spring-hibernate-jars/spring-security-web-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,11 @@
+
+public class PdfGen implements Generator {
+	public void dispaly()
+	{
+		System.out.println("Report generated in PDF");
+	}
+
+
+
+
+}

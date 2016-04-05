@@ -1,0 +1,13 @@
+
+public class Main {
+	public static void main(String args[])
+	{
+		Resource r=new ClassPathResource("spring-config.xml");
+		BeanFactory f=new XmlBeanFactory(r);
+		Object o=f.getBean("db");
+		DemoBean d=(DemoBean)o;
+		d.getMsg();		
+	}
+	
+
+}

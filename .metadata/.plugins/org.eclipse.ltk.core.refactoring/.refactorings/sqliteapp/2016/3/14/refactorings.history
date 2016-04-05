@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;sqliteapp.sqlite.java&apos; to &apos;SQLiteJDBC.java&apos;&#x0D;&#x0A;- Original project: &apos;sqliteapp&apos;&#x0D;&#x0A;- Original element: &apos;sqliteapp.sqlite.java&apos;&#x0D;&#x0A;- Renamed element: &apos;sqliteapp.SQLiteJDBC.java&apos;" description="Rename compilation unit &apos;sqlite.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;sqliteapp{sqlite.java" name="SQLiteJDBC.java" references="false" stamp="1459159030400" version="1.0"/>
+</session>

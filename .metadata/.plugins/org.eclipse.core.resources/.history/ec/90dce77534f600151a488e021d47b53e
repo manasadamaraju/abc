@@ -1,0 +1,131 @@
+package task2;
+
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+
+public class demo {
+
+
+	 Connection con;
+	  Statement st;
+	  ResultSet rs;
+	  Scanner s=new Scanner(System.in);
+	  
+	  
+	  void reg()
+	  {
+		  System.out.println("Enter the Employee IDNO which should be unique");
+		   int eid=s.nextInt();
+	   System.out.println("Enter the Employee NAME");
+	   String ename=s.next();
+	   
+	   
+	   try {
+	    String qry="INSERT INTO emp(eid,ename) VALUES('"+eid+"','"+ename+"')";
+	    int flag=st.executeUpdate(qry);
+	    
+	    if(flag!=0)
+	    {
+	     System.out.println("Registered Successfully!!!");
+	     rs=st.executeQuery("select eid from emp where ename='"+ename+"' ");
+	     
+	    }
+	    else{
+	     System.out.println("Employee already Exists!!!!");
+	    }
+	    
+	   } catch (SQLException e) {
+	    e.printStackTrace();
+	   }
+	   
+	  }
+	  void preg()
+	  {
+	   System.out.println("enter pid");
+	   String pid=s.next();
+	   System.out.println("Enter the Project name");
+	   String pname=s.next();
+	  
+	   try 
+	   {
+	    String qry="insert into project(pid,pname)values('"+pid+"','"+pname+"')";
+	    int flag=st.executeUpdate(qry);
+	    if(flag!=0)
+	    {
+	     System.out.println("Registered Successfully!!!");
+	     rs=st.executeQuery("select pid from project where pname='"+pname+"'");
+	     while(rs.next())
+	     {
+	      System.out.println("Your project id is:"+rs.getInt(1));
+	     }
+	    }
+	    else{
+	     System.out.println("Project Id already Exists!!!!");
+	    }
+	    
+	   } catch (SQLException e) {
+	    e.printStackTrace();
+	   }
+	   
+	  }
+	/*void update()
+	  {
+	   System.out.println("Enter the Employee ID and Working hours");
+	   int eid=s.nextInt();
+	   int noh=s.nextInt();
+	   try {
+	     int flag=st.executeUpdate("UPDATE Emp SET noh="+noh+"  WHERE eid="+eid);
+	     if(flag!=0)
+	     System.out.println("Data updated successfully!!!");
+	     else
+	      System.out.println("No employee number found");
+	    }
+	     catch (SQLException e) {
+	    e.printStackTrace();
+	   }
+	   
+	  }*/
+	
+		
+	public static void main(String[] args)
+	{
+		demo d=new demo();
+	     boolean flag=true;
+	     d.s=new Scanner(System.in);
+	     try 
+	     {
+	    Class.forName("org.sqlite.JDBC");
+	     d.con = DriverManager.getConnection("jdbc:sqlite:D:\\Jpgs\\task2.sqlite");
+	      d.st=d.con.createStatement();
+	     } 
+	     catch ( Exception ex ) 
+	     {
+	    System.err.println( ex.getClass().getName() + ": " + ex.getMessage() );
+	     }
+	       System.out.println("Choose your option ");
+	       System.out.println("1.Register a employee");
+	      System.out.println("2.Register a project");
+	      // System.out.println("3.To update the attendence");
+	       int option=d.s.nextInt();
+	       switch(option)
+	       {
+	       case 1:d.reg();
+	         break;
+	       case 2:d.preg();
+	         break;
+	     //  case 2:d.update();
+	       //  break;
+	       case 3:flag=false;
+	         break;
+	       default:System.out.println("Invalid Input!!!");   
+	       }
+	        }
+
+	}
+

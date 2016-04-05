@@ -1,0 +1,23 @@
+
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="blue" text="white">
+<form action="login.com" method="post">
+<h1 align=center>Login Form</h1><hr><br>
+<table border="0" width="40% align="center">
+<tr><td>Enter Username</td>td>
+<td><input type="text" name="USERNAME"></td>
+</tr>
+<tr>
+<td><input type="password" name="PASSWORD"></td>
+</tr>
+<tr>
+<td align="right"><input type="submit" value="send">
+</td>
+<td><input type="reset" value="clear"></td></tr>
+</table>
+</form>
+</body>

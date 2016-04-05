@@ -1,0 +1,228 @@
+package task2;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class Task2 {
+ Connection con;
+ Statement st;
+ Scanner sc;
+ ResultSet rs;
+ 
+ void register()
+ {
+  System.out.println("Enter the Employee FIRST NAME");
+  String fname=sc.next();
+  System.out.println("Enter the Employee LAST NAME");
+  String lname=sc.next();
+  try {
+   String qry="INSERT INTO emp2(FNAME,LNAME) VALUES('"+fname+"','"+lname+"')";
+   int flag=st.executeUpdate(qry);
+   //boolean flag=st.execute("INSERT INTO emp (FNAME,LNAME) VALUES('vv','llll')");
+   if(flag!=0)
+   {
+    System.out.println("Registered Successfully!!!");
+    rs=st.executeQuery("select IDNO from emp2 where FNAME='"+fname+"' and LNAME='"+lname+"'");
+    while(rs.next())
+    {
+     System.out.println("Your employee id is:"+rs.getInt(1));
+    }
+   }
+   else{
+    System.out.println("Employee already Exists!!!!");
+   }
+   
+  } catch (SQLException e) {
+   e.printStackTrace();
+  }
+  
+ }
+ 
+ void regProj()
+ {
+  System.out.println("Enter the Project ID");
+  int pid=sc.nextInt();
+  System.out.println("Enter the Project Name");
+  String pname=sc.next();
+  try {
+   String qry="INSERT INTO project(PID,PNAME) VALUES("+pid+",'"+pname+"')";
+   int flag=st.executeUpdate(qry);
+   if(flag!=0)
+   {
+    System.out.println("Registered Successfully!!!");
+   
+   }
+   else{
+    System.out.println("Project already Exists!!!!");
+   }
+   
+  } catch (SQLException e) {
+   e.printStackTrace();
+  }
+  
+ }
+ void update()
+ {
+  System.out.println("Enter the Employee ID");
+  int eid=sc.nextInt();
+  System.out.println("Enter the date in mm-dd-yyyy format");
+  String dt=sc.next();
+  Date date=null;
+  SimpleDateFormat sdf=new SimpleDateFormat("MM-dd-yyyy");
+  
+  try {
+   date = sdf.parse(dt);
+   Date date2 = new Date();
+   date2 = sdf.parse(sdf.format(new Date()));
+   DateFormat destDf = new SimpleDateFormat("yyyy-MM-dd");
+   String dateStr = destDf.format(date);
+   if(!date2.before(date))
+   {
+    System.out.println("Enter the Project ID");
+    int pid=sc.nextInt();
+    System.out.println("Enter the working Hours");
+    int w_hrs=sc.nextInt();
+    
+    String qry="SELECT SUM(W_HOURS) from atten where IDNO="+eid+" and DATE='"+dateStr+"' group by IDNO,DATE ";
+    rs=st.executeQuery(qry);
+    int t_hrs=0;
+    while(rs.next())
+    {
+     t_hrs=rs.getInt(1);
+    }
+    if((t_hrs+w_hrs)<=8)
+    {
+     qry="INSERT INTO atten(IDNO,DATE,PID,W_HOURS) VALUES("+eid+",'"+dateStr+"',"+pid+","+w_hrs+")";
+     int flag=st.executeUpdate(qry);
+     if(flag!=0)
+     {
+      System.out.println("Updated Successfully!!!");
+     }
+     else{
+      System.out.println("Not Updated!!!!");
+     }
+    }
+    else{
+     System.out.println("total working hours should be less then 8 per day ");
+     }
+    }
+    else{
+      System.out.println("Date should not be future date!!!");
+    }
+   } catch (Exception e) {
+    e.printStackTrace();
+  }
+    
+ }
+ void wReport()
+ {
+  System.out.println("Enter the employee ID");
+  int id1=sc.nextInt();
+   System.out.println("Enter the start date of week in format:mm-dd-yyyy");
+    String sdate=sc.next();
+    System.out.println("Enter the end date of week in format:mm-dd-yyyy");
+    String edate=sc.next();
+    try {
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+         
+          Date date1=sdf.parse(sdate);
+          Date date2=sdf.parse(edate);
+          DateFormat destDf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateStr1 = destDf.format(date1);
+    String dateStr2 = destDf.format(date2);
+          String qry="SELECT IDNO,DATE,PID,W_HOURS from atten where IDNO="+id1+" and DATE >= '"+dateStr1+"' and DATE<='"+dateStr2+"'";
+          rs=st.executeQuery(qry);
+          System.out.println("The weekly Report is:");
+          while(rs.next())
+          {
+           int id=rs.getInt(1);
+           String dt=rs.getString(2);
+           int pi=rs.getInt(3);
+           int w_h=rs.getInt(4);
+           System.out.println(" "+id+"\t"+dt+"\t"+pi+"\t"+w_h);
+          }
+    }
+     catch(Exception ex){
+              ex.printStackTrace();
+           } 
+    
+ }
+ void mReport()
+ {
+  System.out.println("Enter the employee ID");
+  int id1=sc.nextInt();
+  System.out.println("Enter year and month in format:yyyy-mm");
+    String mnth=sc.next();
+    String dateStr1=mnth+"01";
+    String dateStr2=mnth+"31";
+    try {
+          String qry="SELECT IDNO,DATE,PID,W_HOURS from atten where IDNO="+id1+" and DATE>='"+dateStr1+"' and DATE <='"+dateStr2+"'";
+          rs=st.executeQuery(qry);
+          System.out.println("The monthly Report is:");
+          while(rs.next())
+          {
+           int id=rs.getInt(1);
+           String dt=rs.getString(2);
+           int pi=rs.getInt(3);
+           int w_h=rs.getInt(4);
+           System.out.println(" "+id+"\t"+dt+"\t"+pi+"\t"+w_h);//"\t"+dt+
+          }
+     }
+     catch(Exception ex){
+              ex.printStackTrace();
+           } 
+ }
+ 
+
+ public static void main(String[] args) {
+  // TODO Auto-generated method stub
+   Task2 t1=new Task2();
+   boolean flag=true;
+    t1.sc=new Scanner(System.in);
+    try {
+        Class.forName("org.sqlite.JDBC");
+        t1.con = DriverManager.getConnection("jdbc:sqlite:D:\\Jpgs\\db\\Tas.sqlite");
+        t1.st=t1.con.createStatement();
+      } 
+     catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      }
+    do{
+     System.out.println("Enter the option ");
+     System.out.println("1.Register a employee");
+     System.out.println("2.Register a Project");
+     System.out.println("3.To update the attendence");
+     System.out.println("4.To get weekly report");
+     System.out.println("5.To get Monthly report");
+     System.out.println("6.To Exit");
+     int option=t1.sc.nextInt();
+     switch(option)
+     {
+     case 1:t1.register();
+       break;
+     case 2:t1.regProj();
+       break;
+     case 3:t1.update();
+       break;
+     case 4:t1.wReport();
+       break;
+     case 5:t1.mReport();
+       break;
+     case 6:System.out.println("Thank you!!!");
+       flag=false;
+       break;
+     default:System.out.println("Invalid Input!!!");   
+     }
+     }
+     while(flag);
+ }
+
+}

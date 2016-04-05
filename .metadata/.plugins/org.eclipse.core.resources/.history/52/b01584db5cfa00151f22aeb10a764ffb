@@ -1,0 +1,15 @@
+
+public class Reporter {
+	private Generator gener;
+	public void setGenerator(Generator gener)
+	{
+		this.gener=gener;
+	}
+	public void showReport()
+	{
+		gener.display();
+	}
+
+}
+
+
